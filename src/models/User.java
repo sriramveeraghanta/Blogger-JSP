@@ -1,5 +1,6 @@
 package models;
 
+import db.PostDBUtill;
 import db.UserDBUtill;
 
 public class User {
@@ -85,6 +86,11 @@ public class User {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public Boolean createPost(String content, String image, PostDBUtill postDBUtill) {
+
+		return null;
 	}
 	
 }
