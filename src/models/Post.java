@@ -1,6 +1,7 @@
 package models;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Post {
@@ -11,6 +12,8 @@ public class Post {
 	private String date;
 	private Integer user;
 	
+	// Do something about this for the bonus marks.....
+	private ArrayList<Comment> comments;
 	
 	public Post(Integer id, String content, String image, String date, Integer user) {
 		this.setId(id);
