@@ -6,26 +6,38 @@
       <%@ include file="layouts/header.jsp" %>  
     </jsp:attribute>
     <jsp:attribute name="footer">
-      <p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>
+		<%@ include file="layouts/footer.jsp" %>  
     </jsp:attribute>
-    <jsp:body>
-    	<h1>Social Spark</h1>
-        <p>Hi I'm the heart of the message</p>
-        <fieldset>
-			<legend>Login</legend>
+
+	<jsp:body>
+		<div class=" container">
+<div class="row justify-content-center">
+	<div class="col-md-6 pt-4 align-items-center">
+		<h3 class="text-center">
+			Write Your Way Into the World</h3>
+	</div>
+	<div class="col-md-6">
 		<form action="login" method="POST">
-			<input type="email" name="email" placeholder="Enter your Email">
-			<br><br>
-			<input type="password" name="pass" placeholder="Enter your Password">
-			<br><br>
-			<button type="submit">Login</button>
-			<button type="reset">Reset</button>
-			
 			<tag:if test="${loginError}">
-					<br>
-					<span> incorrect email or password </span>	
+				<div class="alert alert-danger" role="alert">
+					Incorrect Email Or Password
+				</div>	
 			</tag:if>
+			<div class="form-group">
+				<label>Email</label>
+				<input class="form-control" type="email" name="email" placeholder="Enter your Email">
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input class="form-control" type="password" name="pass" placeholder="Enter your Password">
+			</div>
+			<div>
+				<button class="btn btn-success mr-4" type="submit">Login</button>
+				<button class="btn btn-danger" type="reset">Reset</button>
+			</div>	
 		</form>
-	</fieldset>
-    </jsp:body>
+	</div>
+</div>
+</div>
+</jsp:body>
 </t:genericpage>
