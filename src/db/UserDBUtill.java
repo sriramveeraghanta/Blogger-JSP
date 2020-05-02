@@ -3,6 +3,7 @@ package db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.sql.DataSource;
@@ -49,6 +50,31 @@ public class UserDBUtill {
 		return foundUser;	
 	}
 	
+	public User addUser(String email, String password, String firstName, String lastName) throws SQLException {
+		Connection connection = null;
+		Statement statement = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		User createdUser = null;	
+		
+		try {
+			connection = this.dataSource.getConnection();
+			String sql = String.format("INSERT INTO user (first_name,last_name,email,password) VALUES ('%s','%s','%s','%s')", firstName, lastName, email, password);
+			statement = connection.createStatement();
+			int dbStatus = statement.executeUpdate(sql);
+			
+			if(dbStatus > 0) {
+				createdUser = new User(firstName, lastName, email, "");
+			}
+			
+		} finally {
+			close(connection,statement, preparedStatement, resultSet);
+		}
+		
+		return createdUser;
+	}
+	
 	public void close(Connection connection, Statement statement, PreparedStatement prepStatement, ResultSet resultSet) {
 		try {
 			if(connection !=null) {
@@ -67,5 +93,7 @@ public class UserDBUtill {
 			e.printStackTrace();
 		}
 	}
+
+	
 	
 }

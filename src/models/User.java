@@ -10,9 +10,16 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
-		
-	public User(int id, String firstName, String lastName, String email, String password) {
+
+	public User(Integer id, String firstName, String lastName, String email, String password) {
 		this.setId(id);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmail(email);
+		this.setPassword(password);
+	}
+	
+	public User(String firstName, String lastName, String email, String password) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setEmail(email);
@@ -65,14 +72,11 @@ public class User {
 	}
 
 	public Boolean login(UserDBUtill userDBUtill) {
-		
 		try {
 			User tempUser = (User) userDBUtill.findUser(this.email);
-				
+			
 			if(tempUser != null) {
-				
 				String tempPass = tempUser.getPassword();
-				
 				if(this.password.equals(tempPass)) {
 					this.id = tempUser.getId();
 					this.firstName = tempUser.getFirstName();
@@ -89,8 +93,23 @@ public class User {
 	}
 
 	public Boolean createPost(String content, String image, PostDBUtill postDBUtill) {
-
 		return null;
+	}
+
+	public Boolean registerUser(UserDBUtill userDBUtill) {
+		User tempUser = null;
+		try {
+			tempUser = (User) userDBUtill.findUser(this.email);
+			if(tempUser == null) {
+				User createdUser = userDBUtill.addUser(this.email, this.password, this.firstName, this.lastName);
+				if(createdUser != null) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }

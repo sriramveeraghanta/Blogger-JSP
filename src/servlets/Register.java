@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -16,46 +14,47 @@ import javax.sql.DataSource;
 
 import db.UserDBUtill;
 import models.User;
+import sun.security.util.Password;
 
-@WebServlet("/login")
-public class Login extends HttpServlet {
+@WebServlet("/register")
+public class Register extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-
-	public Login() {
+	public Register() {
 		super();
 	}
-
-	@Resource(name = "jdbc/blogger")
+	
+	@Resource(name="jdbc/blogger")
 	private DataSource dataSource;
 	private UserDBUtill userDBUtill;
-
+	
+	
 	@Override
-	public void init() throws ServletException {
+	public void init() throws ServletException{
 		super.init();
+		userDBUtill = new UserDBUtill(dataSource);
 	}
-
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+			
 		HttpSession session = request.getSession();
-
+	
+		String first_name = request.getParameter("first_name");
+		String last_name = request.getParameter("last_name");
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
-
-		User tempUser = new User(email, pass);
-		Boolean canLogin = tempUser.login(userDBUtill);
-
-		request.setAttribute("loginError", false);
 		
-		if (canLogin) {
-			session.setAttribute("user", tempUser);
-			request.setAttribute("loginError", false);
-			response.sendRedirect("home");
-		} else {
-			request.setAttribute("loginError", true);
+		Boolean registerStatus = false;
+		
+		User tempUser = new User(first_name, last_name, email, pass);
+		if(first_name != null && last_name!=null && email!=null && pass != null ) {
+			registerStatus = tempUser.registerUser(userDBUtill);
+			if(registerStatus) {
+				response.sendRedirect("login.jsp");
+			}
 		}
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		request.setAttribute("registerError", registerStatus);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
 		dispatcher.forward(request, response);
 	}
 

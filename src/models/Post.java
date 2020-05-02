@@ -13,7 +13,7 @@ public class Post {
 	private Integer user;
 	
 	// Do something about this for the bonus marks.....
-	private ArrayList<Comment> comments;
+//	private ArrayList<Comment> comments;
 	
 	public Post(Integer id, String content, String image, String date, Integer user) {
 		this.setId(id);

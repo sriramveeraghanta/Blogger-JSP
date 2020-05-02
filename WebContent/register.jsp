@@ -9,20 +9,19 @@
 		<%@ include file="layouts/footer.jsp" %>  
     </jsp:attribute>
 
-	<jsp:body>
-		<div class=" container" style="min-height: 84vh;">
+<jsp:body>
+<div class=" container" style="min-height: 84vh;">
 <div class="row justify-content-center mt-4 mb-4">
-	<div class="col-md-6 pt-4 pb-4 align-items-center">
-		<h3 class="text-center">
-			Write Your Way Into the World</h3>
-	</div>
 	<div class="col-md-6 pt-4 pb-4">
-		<form action="login" method="POST">
-			<tag:if test="${loginError}">
-				<div class="alert alert-danger" role="alert">
-					Incorrect Email Or Password
-				</div>	
-			</tag:if>
+		<form action="register" method="POST">
+			<div class="form-group">
+				<label>First Name</label>
+				<input class="form-control" type="text" name="first_name" placeholder="Enter your First Name">
+			</div>
+			<div class="form-group">
+				<label>Last Name</label>
+				<input class="form-control" type="text" name="last_name" placeholder="Enter your Last Name">
+			</div>
 			<div class="form-group">
 				<label>Email</label>
 				<input class="form-control" type="email" name="email" placeholder="Enter your Email">
@@ -32,7 +31,7 @@
 				<input class="form-control" type="password" name="pass" placeholder="Enter your Password">
 			</div>
 			<div>
-				<button class="btn btn-success mr-4" type="submit">Login</button>
+				<button class="btn btn-success mr-4" type="submit">Register</button>
 				<button class="btn btn-danger" type="reset">Reset</button>
 			</div>	
 		</form>
