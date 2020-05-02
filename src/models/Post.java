@@ -1,7 +1,6 @@
 package models;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Post {
@@ -9,27 +8,29 @@ public class Post {
 	private Integer id;
 	private String content;
 	private String image;
-	private String date;
-	private Integer user;
+	private String createdAt;
+	private Integer user_id;
+	private Integer likesCout;
+	private User user;
 	
 	// Do something about this for the bonus marks.....
 //	private ArrayList<Comment> comments;
 	
-	public Post(Integer id, String content, String image, String date, Integer user) {
+	public Post(Integer id, String content, String image, String createdAt, Integer user_id) {
 		this.setId(id);
 		this.setContent(content);
 		this.setImage(image);
-		this.setDate(date);
-		this.setUser(user);
+		this.setCreatedAt(createdAt);
+		this.setUserId(user_id);
 	}
 	
-	public Post(String content, String image, Integer user) {
+	public Post(String content, String image, Integer user_id) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		this.user = user;
+		this.user_id = user_id;
 		this.content = content;
 		this.image = image;
 		this.id = null;
-		this.date = simpleDateFormat.format(new Date());
+		this.createdAt = simpleDateFormat.format(new Date());
 	}
 	
 	
@@ -40,7 +41,7 @@ public class Post {
 		this.id = id;
 	}
 	public String getContent() {
-		return content;
+		return this.content;
 	}
 	public void setContent(String content) {
 		this.content = content;
@@ -51,16 +52,34 @@ public class Post {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getDate() {
-		return date;
+	public int getUserId() {
+		return this.user_id;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setUserId(Integer user_id) {
+		this.user_id = user_id;
 	}
-	public int getUser() {
+
+	public User getUser() {
 		return user;
 	}
-	public void setUser(int user) {
+
+	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Integer getLikesCout() {
+		return likesCout;
+	}
+
+	public void setLikesCout(Integer likesCout) {
+		this.likesCout = likesCout;
 	}
 }

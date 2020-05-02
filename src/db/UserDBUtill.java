@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -73,6 +74,31 @@ public class UserDBUtill {
 		}
 		
 		return createdUser;
+	}
+	
+	
+public ArrayList<String> getAllUser(String email) throws Exception{
+		Connection connection = null;
+		Statement statement = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<String> allUsers = new ArrayList<>();
+		try {
+			connection = this.dataSource.getConnection();
+			String sql = "SELECT * FROM user WHERE email != ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				String tempFname = resultSet.getString("first_name").toString();
+				String tempLname = resultSet.getString("last_name").toString();				
+				allUsers.add(tempFname+" "+tempLname);	
+			}
+			
+		}finally {
+			close(connection,statement,preparedStatement,resultSet);
+		}
+		return allUsers;	
 	}
 	
 	public void close(Connection connection, Statement statement, PreparedStatement prepStatement, ResultSet resultSet) {
