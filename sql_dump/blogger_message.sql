@@ -27,6 +27,7 @@ CREATE TABLE `message` (
   `content` varchar(45) DEFAULT NULL,
   `sent_by` int DEFAULT NULL,
   `sent_to` int DEFAULT NULL,
+  `created` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_sent_from_idx` (`sent_by`),
   KEY `fk_send_to_idx` (`sent_to`),
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-02 20:16:25
+-- Dump completed on 2020-05-02 20:24:31
