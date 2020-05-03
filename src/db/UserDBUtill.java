@@ -19,6 +19,37 @@ public class UserDBUtill {
 		this.dataSource = datasource;
 	}
 	
+	public User getUserDetails(Integer user_id) throws SQLException {
+		Connection connection = null;
+		Statement statement = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		User foundUser = null;	
+		
+		try {
+			
+			connection = this.dataSource.getConnection();
+			String sql = "SELECT * FROM user WHERE id = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, user_id);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				Integer idInteger = resultSet.getInt("id");
+				String firstNameString  = resultSet.getString("first_name").toString();
+				String lastNameString = resultSet.getString("last_name").toString();
+				String emailString = resultSet.getString("email").toString();
+				String passwordString = resultSet.getString("password").toString();
+				foundUser = new User(idInteger, firstNameString, lastNameString, emailString, passwordString);
+			}
+		} finally {
+			close(connection,statement, preparedStatement, resultSet);
+		}
+			
+		return foundUser;
+	}
+	
 	public User findUser(String email) throws Exception{
 		
 		Connection connection = null;
@@ -77,7 +108,7 @@ public class UserDBUtill {
 	}
 	
 	
-public ArrayList<String> getAllUser(String email) throws Exception{
+	public ArrayList<String> getAllUser(String email) throws Exception{
 		Connection connection = null;
 		Statement statement = null;
 		PreparedStatement preparedStatement = null;
